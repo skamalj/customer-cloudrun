@@ -5,3 +5,6 @@ steps:
 # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/$PROJECT_ID/customer:$SHORT_SHA']
+# Specify options. Since this build trigger specifies SA, logging option must be specified.  
+ options:
+  logging: CLOUD_LOGGING_ONLY
