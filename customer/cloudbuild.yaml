@@ -11,5 +11,13 @@ steps:
   args: ['kustomize edit set image changeonbuild=$$IMAGE_NAME && kustomize build > kustomized_service.yaml']
   env:
     - 'IMAGE_NAME=asia-south1-docker.pkg.dev/$PROJECT_ID/demo-app/customer:$SHORT_SHA'
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  dir:  'customer/kustomize'
+  entrypoint: gcloud
+  args:
+    - 'run'
+    - 'services'
+    - 'replace'
+    - 'kustomize_service.yaml'
 options:
   logging: CLOUD_LOGGING_ONLY
