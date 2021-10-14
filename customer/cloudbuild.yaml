@@ -17,7 +17,7 @@ steps:
     - 'IMAGE_NAME=asia-south1-docker.pkg.dev/$PROJECT_ID/demo-app/customer:$SHORT_SHA'
 - name: 'ubuntu'
   dir:  'customer/kustomize'
-  args: ['ls', '-al']
+  args: ['cat', 'kustomized_service']
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   dir:  'customer/kustomize'
   entrypoint: gcloud
