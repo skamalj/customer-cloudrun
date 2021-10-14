@@ -11,8 +11,5 @@ steps:
   args: ['kustomize edit set image changeonbuild=$$IMAGE_NAME && kustomize build > kustomized_service.yaml']
   env:
     - 'IMAGE_NAME=asia-south1-docker.pkg.dev/$PROJECT_ID/demo-app/customer:$SHORT_SHA'
-    - 'CLOUDSDK_COMPUTE_ZONE=somezone'
-    - 'CLOUDSDK_CONTAINER_CLUSTER=somecluster'
-    - 'GCLOUD_PROJECT=$PROJECT_ID'
 options:
   logging: CLOUD_LOGGING_ONLY
