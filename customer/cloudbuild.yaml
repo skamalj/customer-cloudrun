@@ -6,5 +6,10 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'asia-south1-docker.pkg.dev/$PROJECT_ID/demo-app/customer:$SHORT_SHA']
 # Specify options. Since this build trigger specifies SA, logging option must be specified.  
+  name: 'gcr.io/$PROJECT_ID/kustomize'
+  dir:  'customer/kustomize'
+  args: ['kustomize edit set image changeonbuild=$$IMAGE_NAME && kustomize build > kustomized_service.yaml']
+  env:
+    - 'IMAGE_NAME=asia-south1-docker.pkg.dev/$PROJECT_ID/demo-app/customer:$SHORT_SHA'
 options:
   logging: CLOUD_LOGGING_ONLY

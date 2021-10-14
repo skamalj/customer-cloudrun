@@ -1,0 +1,12 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: nginx
+spec:
+  template:
+    spec:
+      containers:
+      - image: changeonbuild:changeonbuild
+        resources:
+          limits:
+            cpu: 2
