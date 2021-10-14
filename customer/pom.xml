@@ -19,6 +19,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <start-class>com.kamalsblog.classicmodels.CustomerApplication</start-class>
         <java.version>11</java.version>
+        <jar.finalName>${project.name}</jar.finalName>
     </properties>
 
   <dependencies> 
