@@ -26,5 +26,9 @@ steps:
     - 'services'
     - 'replace'
     - 'kustomized_service.yaml'
+    - '--region'
+    - 'asia-south1'
+    - '--platform'
+    - 'managed'
 options:
   logging: CLOUD_LOGGING_ONLY
