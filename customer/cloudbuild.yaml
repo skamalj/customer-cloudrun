@@ -18,6 +18,6 @@ steps:
     - 'run'
     - 'services'
     - 'replace'
-    - 'kustomize_service.yaml'
+    - 'kustomized_service.yaml'
 options:
   logging: CLOUD_LOGGING_ONLY
