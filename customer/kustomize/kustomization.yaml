@@ -5,5 +5,5 @@ resources:
 - service.yaml
 images:
 - name: changeonbuild
-  newName: changeonbuild
-  newTag: changeonbuild
+  newName: asia-south1-docker.pkg.dev/gcdeveloper/demo-app/customer
+  newTag: 4dad9b3
