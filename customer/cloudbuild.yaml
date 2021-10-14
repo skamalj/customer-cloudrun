@@ -8,9 +8,16 @@ steps:
 # Specify options. Since this build trigger specifies SA, logging option must be specified.  
 - name: 'gcr.io/$PROJECT_ID/kustomize'
   dir:  'customer/kustomize'
-  args: ['kustomize edit set image changeonbuild=$$IMAGE_NAME && kustomize build > kustomized_service.yaml']
+  entrypoint: bash
+  args:
+  - '-c'
+  - |
+    kustomize edit set image changeonbuild=$$IMAGE_NAME && kustomize build > kustomized_service.yaml
   env:
     - 'IMAGE_NAME=asia-south1-docker.pkg.dev/$PROJECT_ID/demo-app/customer:$SHORT_SHA'
+- name: 'ubuntu'
+  dir:  'customer/kustomize'
+  args: ['ls', '-al']
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   dir:  'customer/kustomize'
   entrypoint: gcloud
