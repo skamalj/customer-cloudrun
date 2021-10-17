@@ -6,9 +6,6 @@ spec:
   template:
     metadata:
       name: customer-v1
-      annotations:
-        run.googleapis.com/vpc-access-connector: cloudrun-vpc-con
-        run.googleapis.com/vpc-access-egress: all-traffic
     spec:
       containers:
       - image: changeonbuild:changeonbuild
