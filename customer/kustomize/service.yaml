@@ -4,9 +4,14 @@ metadata:
   name: customer
 spec:
   template:
+    metadata: 
+      name: customer
+      annotations:
+        run.googleapis.com/vpc-access-connector: cloudrun-vpc-con
+        run.googleapis.com/vpc-access-egress: all-traffic
     spec:
       containers:
       - image: changeonbuild:changeonbuild
         resources:
           limits:
-            cpu: "2"
+            cpu: "1"
