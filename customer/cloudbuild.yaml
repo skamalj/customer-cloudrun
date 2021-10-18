@@ -27,7 +27,7 @@ steps:
     - 'replace'
     - 'kustomized_service.yaml'
     - '--region'
-    - 'asia-south1'
+    - 'us-central1'
     - '--platform'
     - 'managed'
 options:
