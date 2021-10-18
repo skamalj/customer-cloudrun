@@ -1,10 +1,10 @@
 steps:
 # Build the container image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'asia-south1-docker.pkg.dev/$PROJECT_ID/demo-app/customer:$SHORT_SHA', 'customer']
+  args: ['build', '-t', '${_REGION}-docker.pkg.dev/$PROJECT_ID/demo-app/customer:$SHORT_SHA', 'customer']
 # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'asia-south1-docker.pkg.dev/$PROJECT_ID/demo-app/customer:$SHORT_SHA']
+  args: ['push', '${_REGION}-docker.pkg.dev/$PROJECT_ID/demo-app/customer:$SHORT_SHA']
 # Specify options. Since this build trigger specifies SA, logging option must be specified.  
 - name: 'gcr.io/$PROJECT_ID/kustomize'
   dir:  'customer/kustomize'
@@ -14,7 +14,7 @@ steps:
   - |
     kustomize edit set image changeonbuild=$$IMAGE_NAME && kustomize build > kustomized_service.yaml
   env:
-    - 'IMAGE_NAME=asia-south1-docker.pkg.dev/$PROJECT_ID/demo-app/customer:$SHORT_SHA'
+    - 'IMAGE_NAME=${_REGION}-docker.pkg.dev/$PROJECT_ID/demo-app/customer:$SHORT_SHA'
 - name: 'ubuntu'
   dir:  'customer/kustomize'
   args: ['cat', 'kustomized_service.yaml']
@@ -27,8 +27,10 @@ steps:
     - 'replace'
     - 'kustomized_service.yaml'
     - '--region'
-    - 'us-central1'
+    - '${_REGION}'
     - '--platform'
     - 'managed'
+substitution:
+  _REGION: us-central1    
 options:
   logging: CLOUD_LOGGING_ONLY
