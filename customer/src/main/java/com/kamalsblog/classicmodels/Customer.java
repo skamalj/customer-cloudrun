@@ -3,12 +3,15 @@ package com.kamalsblog.classicmodels;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @Document(collection = "customer")
 @ICustomerConstraint
 public class Customer {
 	
 	@Id
 	private int customerNumber;
+	@Schema(example="Kamal", required=true, description="Name of employee")
 	private String customerName;
 	private String contactLastName;
 	private String contactFirstName;
