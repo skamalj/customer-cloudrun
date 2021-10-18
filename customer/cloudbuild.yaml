@@ -30,7 +30,7 @@ steps:
     - '${_REGION}'
     - '--platform'
     - 'managed'
-substitution:
+substitutions:
   _REGION: us-central1    
 options:
   logging: CLOUD_LOGGING_ONLY
