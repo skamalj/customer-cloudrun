@@ -25,6 +25,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
@@ -35,15 +38,17 @@ public class CustomerController {
 	public CustomerController(MongoTemplate template, CustomerRepository repository) {
 		this.repository = repository;
 	}
-
+	
+	@Operation(summary = "Get all customers - Pageable")
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	List<Customer> getCustomers(@RequestParam(name = "start", required = false, defaultValue = "0", value = "Page (of size limit) number to show ") int start,
-			@RequestParam(name = "limit", required = false, defaultValue = "15", value="Page size") int limit) {
+	List<Customer> getCustomers(@Parameter(description = "Page (of size limit) number to show ") @RequestParam(name = "start", required = false, defaultValue = "0") int start,
+			@Parameter(description = "Page size") @RequestParam(name = "limit", required = false, defaultValue = "15") int limit) {
 		Page<Customer> page = repository.findAll(PageRequest.of(start, limit));
 		return page.toList();
 
 	}
 	
+	@Operation(summary = "Get customer by ID")
 	@GetMapping(value="/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	Customer getCustomer(@PathVariable int id) {
 		Optional<Customer> cust = repository.findById(id);
