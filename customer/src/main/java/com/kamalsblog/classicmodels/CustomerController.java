@@ -50,7 +50,7 @@ public class CustomerController {
 	
 	@Operation(summary = "Get customer by ID")
 	@GetMapping(value="/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	Customer getCustomer(@PathVariable int id) {
+	Customer getCustomer(@Parameter(description = "Customer ID") @PathVariable int id) {
 		Optional<Customer> cust = repository.findById(id);
 		if (cust.isPresent())
 			return cust.get();
@@ -58,9 +58,10 @@ public class CustomerController {
 			throw new CustomerIDNotFoundException(id);
 	}
 	
+	@Operation(summary = "Delete customer by ID")
 	@DeleteMapping(value="/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	void deleteCustomer(@PathVariable int id) {
+	void deleteCustomer(@Parameter(description = "Customer ID") @PathVariable int id) {
 		Optional<Customer> cust = repository.findById(id);
 		if (cust.isPresent())
 			repository.delete(cust.get());
@@ -68,10 +69,10 @@ public class CustomerController {
 			throw new CustomerIDNotFoundException(id);
 	}
 	
-	
+	@Operation(summary = "Create customer, will reject duplicate")
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-	Customer addCustomer(@Valid @RequestBody Customer c, BindingResult bindingResult) {
+	Customer addCustomer(@Parameter(description = "Customer object") @Valid @RequestBody Customer c, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			List<String> errorMessages = new ArrayList<String>();
 			String errMessage = "Message: %s, RejectedValue: %s";
@@ -88,9 +89,10 @@ public class CustomerController {
 		}
 	}
 	
+	@Operation(summary = "Upsert customer - Update if exists else create")
 	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-	Customer updateOrAddCustomer(@Valid @RequestBody Customer c, BindingResult bindingResult) {
+	Customer updateOrAddCustomer(@Parameter(description = "Customer object") @Valid @RequestBody Customer c, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			List<String> errorMessages = new ArrayList<String>();
 			String errMessage = "Message: %s, RejectedValue: %s";
