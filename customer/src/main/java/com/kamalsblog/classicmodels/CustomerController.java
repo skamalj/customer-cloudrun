@@ -27,10 +27,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 
+@SecurityScheme(type = SecuritySchemeType.HTTP, 
+		in = SecuritySchemeIn.HEADER, scheme = "bearer", name="CustomerAPIAuth")
+class OpenAPIConfiguration {
+}
+
+@SecurityRequirement(name = "CustomerAPIAuth")
 @RestController
 @RequestMapping("/customer")
 @OpenAPIDefinition(info = @Info (title = "Customer API Specification", version = "v1"))
