@@ -27,9 +27,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 
 @RestController
 @RequestMapping("/customer")
+@OpenAPIDefinition(info = @Info (title = "Customer API Specification", version = "v1"))
+@Tag(name = "Customer", description = "Customer REST APIs")
 public class CustomerController {
 
 	private final CustomerRepository repository;
