@@ -37,8 +37,8 @@ public class CustomerController {
 	}
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	List<Customer> getCustomers(@RequestParam(name = "start", required = false, defaultValue = "0") int start,
-			@RequestParam(name = "limit", required = false, defaultValue = "15") int limit) {
+	List<Customer> getCustomers(@RequestParam(name = "start", required = false, defaultValue = "0", value = "Page (of size limit) number to show ") int start,
+			@RequestParam(name = "limit", required = false, defaultValue = "15", value="Page size") int limit) {
 		Page<Customer> page = repository.findAll(PageRequest.of(start, limit));
 		return page.toList();
 
