@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,6 +52,17 @@ public class CustomerController {
 		else 
 			throw new CustomerIDNotFoundException(id);
 	}
+	
+	@DeleteMapping(value="/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	void deleteCustomer(@PathVariable int id) {
+		Optional<Customer> cust = repository.findById(id);
+		if (cust.isPresent())
+			repository.delete(cust.get());
+		else 
+			throw new CustomerIDNotFoundException(id);
+	}
+	
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
