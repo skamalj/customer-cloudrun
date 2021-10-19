@@ -61,9 +61,9 @@ public class CustomerController {
 				errorMessages.add(String.format(errMessage, err.getDefaultMessage(), err.getRejectedValue()));
 			}
 			throw new InvalidCustomerDetailsException(String.join(",",errorMessages));
+		} else {
+			return repository.insert(c);
 		}
-		return null;
-		//return repository.insert(c);
 	}
 	
 	@SuppressWarnings("serial")
