@@ -17,6 +17,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,14 +56,37 @@ public class CustomerController {
     @ResponseStatus(HttpStatus.CREATED)
 	Customer addCustomer(@Valid @RequestBody Customer c, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
-			List<String> errorMessages = new ArrayList();
+			List<String> errorMessages = new ArrayList<String>();
 			String errMessage = "Message: %s, RejectedValue: %s";
 			for (FieldError err : bindingResult.getFieldErrors()) {
 				errorMessages.add(String.format(errMessage, err.getDefaultMessage(), err.getRejectedValue()));
 			}
 			throw new InvalidCustomerDetailsException(String.join(",",errorMessages));
 		} else {
-			return repository.insert(c);
+			try {
+				return repository.insert(c);
+			} catch(Exception e) {
+				throw new CustomerCreateOrUpdateException("Create Customer: " + e.getMessage());
+			}
+		}
+	}
+	
+	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+	Customer updateOrAddCustomer(@Valid @RequestBody Customer c, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			List<String> errorMessages = new ArrayList<String>();
+			String errMessage = "Message: %s, RejectedValue: %s";
+			for (FieldError err : bindingResult.getFieldErrors()) {
+				errorMessages.add(String.format(errMessage, err.getDefaultMessage(), err.getRejectedValue()));
+			}
+			throw new InvalidCustomerDetailsException(String.join(",",errorMessages));
+		} else {
+			try {
+				return repository.save(c);
+			} catch(Exception e) {
+				throw new CustomerCreateOrUpdateException("Update Customer: " + e.getMessage());
+			}
 		}
 	}
 	
@@ -75,6 +99,12 @@ public class CustomerController {
 	@SuppressWarnings("serial")
 	public class InvalidCustomerDetailsException extends RuntimeException {
 		InvalidCustomerDetailsException(String message){
+			super(message);
+		}
+	}
+	@SuppressWarnings("serial")
+	public class CustomerCreateOrUpdateException extends RuntimeException {
+		CustomerCreateOrUpdateException(String message){
 			super(message);
 		}
 	}

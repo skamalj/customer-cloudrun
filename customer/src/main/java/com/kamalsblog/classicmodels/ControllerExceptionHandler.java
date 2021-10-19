@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.kamalsblog.classicmodels.CustomerController.CustomerCreateOrUpdateException;
 import com.kamalsblog.classicmodels.CustomerController.CustomerIDNotFoundException;
 import com.kamalsblog.classicmodels.CustomerController.InvalidCustomerDetailsException;
 
@@ -23,5 +24,10 @@ public class ControllerExceptionHandler {
 	String CInvalidCustomerDetailsHandler(InvalidCustomerDetailsException ex) {
 		return ex.getMessage();
 	}
-
+	@ResponseBody
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(value=CustomerCreateOrUpdateException.class)
+	String CustomerCreateOrUpdateHandler(CustomerCreateOrUpdateException ex) {
+		return ex.getMessage();
+	}
 }
