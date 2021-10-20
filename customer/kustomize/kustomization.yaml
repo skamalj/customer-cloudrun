@@ -6,4 +6,4 @@ resources:
 images:
 - name: changeonbuild
   newName: us-central1-docker.pkg.dev/gcdeveloper/demo-app/customer
-  newTag: d6e5949
+  newTag: 56a7538

@@ -22,6 +22,7 @@ steps:
   dir:  'customer/kustomize'
   entrypoint: gcloud
   args:
+    - 'beta'
     - 'run'
     - 'services'
     - 'replace'
