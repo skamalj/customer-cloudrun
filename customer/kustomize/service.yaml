@@ -11,6 +11,9 @@ spec:
         run.googleapis.com/vpc-access-egress: all-traffic  
     spec:
       serviceAccountName: cloudrun-sa 
+      traffic:
+      - revisionName: v1
+        percent: 100
       containers:
       - image: changeonbuild:changeonbuild
         env:
@@ -22,6 +25,3 @@ spec:
         resources:
           limits:
             cpu: "1"
-        traffic:
-        - revisionName: v1
-          percent: 100
