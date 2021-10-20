@@ -7,17 +7,17 @@ spec:
     metadata:
       annotations:
         run.googleapis.com/vpc-access-connector: cloudrun-vpc-con
-        run.googleapis.com/vpc-access-egress: all-traffic  
+        run.googleapis.com/vpc-access-egress: all-traffic
     spec:
-      serviceAccountName: cloudrun-sa 
       containers:
-      - image: changeonbuild:changeonbuild
-        env:
+      - env:
         - name: SPRING_DATA_MONGODB_URI
           valueFrom:
             secretKeyRef:
-              key: "1"
+              key: 1
               name: mongouri-customer
+        image: us-central1-docker.pkg.dev/gcdeveloper/demo-app/customer:d6e5949
         resources:
           limits:
             cpu: "1"
+      serviceAccountName: cloudrun-sa
