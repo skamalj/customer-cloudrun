@@ -22,6 +22,6 @@ spec:
         resources:
           limits:
             cpu: "1"
-        traffice:
+        traffic:
         - revisionName: v1
           percent: 100
