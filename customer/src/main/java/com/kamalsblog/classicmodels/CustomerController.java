@@ -35,7 +35,7 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 
-@SecurityScheme(type = SecuritySchemeType.HTTP, 
+@SecurityScheme(type = SecuritySchemeType.HTTP, description = "gcloud auth print-access-token",
 		in = SecuritySchemeIn.HEADER, scheme = "bearer", name="CustomerAPIAuth")
 class OpenAPIConfiguration {
 }
