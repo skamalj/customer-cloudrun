@@ -9,8 +9,15 @@ spec:
         run.googleapis.com/vpc-access-connector: cloudrun-vpc-con
         run.googleapis.com/vpc-access-egress: all-traffic  
     spec:
+      serviceAccountName: cloudrun-sa 
       containers:
       - image: changeonbuild:changeonbuild
+        env:
+        - name: SPRING_DATA_MONGODB_URI
+          valueFrom:
+            secretKeyRef:
+              key: 1
+              name: mongouri-customer
         resources:
           limits:
             cpu: "1"
