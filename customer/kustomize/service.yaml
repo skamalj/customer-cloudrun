@@ -5,10 +5,14 @@ metadata:
 spec:
   traffic:
   - revisionName: "customer-v1"
-    percent: 100
+    tag: blue
+    percent: 80
+  - revisionName: "customer-v2"
+    tag: green
+    percent: 20  
   template:
     metadata:
-      name: "customer-v1"
+      name: "customer-v2"
       annotations:
         run.googleapis.com/vpc-access-connector: cloudrun-vpc-con
         run.googleapis.com/vpc-access-egress: all-traffic  
