@@ -3,17 +3,17 @@ kind: Service
 metadata:
   name: customer
 spec:
+  traffic:
+  - revisionName: "customer-v1"
+    percent: 100
   template:
     metadata:
-      name: "v1"
+      name: "customer-v1"
       annotations:
         run.googleapis.com/vpc-access-connector: cloudrun-vpc-con
         run.googleapis.com/vpc-access-egress: all-traffic  
     spec:
       serviceAccountName: cloudrun-sa 
-      traffic:
-      - revisionName: v1
-        percent: 100
       containers:
       - image: changeonbuild:changeonbuild
         env:
