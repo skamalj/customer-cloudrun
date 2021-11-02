@@ -1,4 +1,4 @@
-package com.kamalsblog.classicmodels;
+package com.kamalsblog.classicmodels.models;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Component;

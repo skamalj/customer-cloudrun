@@ -1,4 +1,4 @@
-package com.kamalsblog.classicmodels;
+package com.kamalsblog.classicmodels.util;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;

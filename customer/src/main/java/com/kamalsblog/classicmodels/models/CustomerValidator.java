@@ -1,4 +1,4 @@
-package com.kamalsblog.classicmodels;
+package com.kamalsblog.classicmodels.models;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

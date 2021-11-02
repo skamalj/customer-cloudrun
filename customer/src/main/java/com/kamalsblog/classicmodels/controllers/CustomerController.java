@@ -1,4 +1,4 @@
-package com.kamalsblog.classicmodels;
+package com.kamalsblog.classicmodels.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kamalsblog.classicmodels.models.Customer;
+import com.kamalsblog.classicmodels.models.CustomerRepository;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
@@ -37,13 +40,13 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 
 @SecurityScheme(type = SecuritySchemeType.HTTP, description = "gcloud auth print-access-token",
 		in = SecuritySchemeIn.HEADER, scheme = "bearer", name="CustomerAPIAuth")
+@OpenAPIDefinition(info = @Info (title = "Classic Models API Specification", version = "v1"))
 class OpenAPIConfiguration {
 }
 
 @SecurityRequirement(name = "CustomerAPIAuth")
 @RestController
 @RequestMapping("/customer")
-@OpenAPIDefinition(info = @Info (title = "Customer API Specification", version = "v1"))
 @Tag(name = "Customer", description = "Customer REST APIs")
 public class CustomerController {
 
