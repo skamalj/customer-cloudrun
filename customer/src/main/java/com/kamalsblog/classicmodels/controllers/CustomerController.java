@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kamalsblog.classicmodels.models.Customer;
 import com.kamalsblog.classicmodels.models.CustomerRepository;
 
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
@@ -69,7 +70,7 @@ public class CustomerController {
 	@Operation(summary = "Get customer by ID")
 	@GetMapping(value="/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	Customer getCustomer(@Parameter(description = "Customer ID") @PathVariable int id) {
-		Optional<Customer> cust = repository.findById(id);
+		Optional<Customer> cust = repository.findById(id+1);
 		if (cust.isPresent())
 			return cust.get();
 		else 
