@@ -3,13 +3,13 @@ kind: Service
 metadata:
   name: customer
 spec:
-  traffic:
-  - revisionName: "customer-v1"
-    tag: blue
-    percent: 80
-  - revisionName: "customer-v2"
-    tag: green
-    percent: 20
+#  traffic:
+# - revisionName: "customer-v1"
+#    tag: blue
+#    percent: 80
+#  - revisionName: "customer-v2"
+#    tag: green
+#    percent: 20
   template:
     metadata:
       name: "customer-v2"
