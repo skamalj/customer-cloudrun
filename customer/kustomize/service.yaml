@@ -5,10 +5,10 @@ metadata:
 spec:
   traffic:
   - revisionName: "customer-v1"
-    tag: ver-1
+    tag: ver1
     percent: 50
   - revisionName: "customer-v2"
-    tag: ver-2
+    tag: ver2
     percent: 50
   template:
     metadata:
