@@ -70,7 +70,7 @@ public class CustomerController {
 	@Operation(summary = "Get customer by ID")
 	@GetMapping(value="/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	Customer getCustomer(@Parameter(description = "Customer ID") @PathVariable int id) {
-		Optional<Customer> cust = repository.findById(id+1);
+		Optional<Customer> cust = repository.findById(id);
 		if (cust.isPresent())
 			return cust.get();
 		else 

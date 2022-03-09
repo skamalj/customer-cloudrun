@@ -35,7 +35,7 @@ public class Customer {
 			String country, int salesRepEmployeeNumber, double creditLimit) {
 		super();
 		this.customerNumber = customerNumber;
-		this.customerName = customerName;
+		this.customerName = customerName.toUpperCase();
 		this.contactLastName = contactLastName;
 		this.contactFirstName = contactFirstName;
 		this.phone = phone;
@@ -65,10 +65,10 @@ public class Customer {
 		this.customerNumber = customerNumber;
 	}
 	public String getCustomerName() {
-		return customerName;
+		return customerName.toUpperCase();
 	}
 	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
+		this.customerName = customerName.toUpperCase();
 	}
 	public String getContactLastName() {
 		return contactLastName;
