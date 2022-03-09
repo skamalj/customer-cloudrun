@@ -4,7 +4,7 @@ metadata:
   name: customer
 spec:
   traffic:
- - revisionName: "customer-v1"
+  - revisionName: "customer-v1"
     tag: v1
     percent: 50
   - revisionName: "customer-v2"
