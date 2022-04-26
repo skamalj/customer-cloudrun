@@ -16,8 +16,8 @@ spec:
       annotations:
         run.googleapis.com/vpc-access-connector: cloudrun-vpc-con
         run.googleapis.com/vpc-access-egress: all-traffic
-        autoscaling.knative.dev/minScale: 1
-        autoscaling.knative.dev/maxScale: 5
+        autoscaling.knative.dev/minScale: "1"
+        autoscaling.knative.dev/maxScale: "5"
     spec:
       containerConcurrency: 100
       serviceAccountName: cloudrun-sa 
