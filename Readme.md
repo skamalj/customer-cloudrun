@@ -58,6 +58,10 @@ This variable corresponds to spring.data.mongodb.uri set in application.properti
 
 # Containerized execution
 
+## Dockerfile
+The dockerfile should be multi-staged to keep it lean by ensuring no unnecessary files make into the image. 
+[Read here](https://docs.docker.com/develop/develop-images/multistage-build/), and review Dockerfile in this repository in **customer** folder
+
 ## Create Image
 Run below command to create docker image. You should be in **customer** directory i.e directory where Dockerfile is present
 ```
