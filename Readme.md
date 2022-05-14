@@ -1,12 +1,95 @@
 ## Local Execution
-This is code for java springboot microservcies with mongodb as backend.
+This is code for java springboot microservcies with mongodb as backend and explains how to override application properties externally i.e how to override proeprties set and packaged in the application jar.
+
+## MongoDB data
 
 The data required is sample mysql database - [here](https://www.mysqltutorial.org/mysql-sample-database.aspx#:~:text=%20The%20MySQL%20sample%20database%20schema%20consists%20of,such%20as%20who%20reports%20to%20whom.%20More%20)
-* You need to import this database to mysql first (as per instructions in the link)
-* Export the tables - customer order and orderdetails as CSV
-* Import these tables to mongo instance
 
-This needs environment variable,  SPRING_DATA_MONGODB_URI set. Code does not accept separate user/password. These needs to be part of URI.
+* Data needs to be in database named **classicmodels**
+* Following collections are needed, data for these is in /data directory
+* You can use mongoimport of compass to import this data
+* For **Customer collection**, below is the type for columns for import. Rest of all columns are string.
+```
+_id int32
+creditLimit double
+postalCode int32
+saleRepEmployeeNumber int32
+```
+* Below is the schema for  **orders collection**
+```
+_id int32
+comments string
+customerNumber int32
+orderDate date
+requiredDate date
+shipperDate date
+status string
+``` 
+
+## Create two instances for mongo DB
+* One local, this is default in application.properties
+* One on MongoAtlas, this we will  use to override application properties t oconnect to cloud without compiling / building the code again.
+
+## Local Execution
+```
+cd customer
+mvn package
+java -jar target/customer-0.0.1-SNAPSHOT.jar
+```
+* Once the code is running open [swagger-ui](http://localhost:8080/swagger-ui.html)  
+* * Now you can run any of the api available on the screen.
+
+## Remote connect to MongoAtlas - Non-Container
+There are multiple ways to override application properties without changing the application jar. We will look at two of these:-
+* Override using ENV variables  
+    * Set environment variable **SPRING_DATA_MONGODB_URI**=```<Atlas URI>```  
+This variable corresponds to spring.data.mongodb.uri set in application.properties in the jar. See how it is capitalized and **dot** are replaced by **underscore**.
+
+    * *There is no need to rebuild the code, just execute the existing jar. This time code will connect to Atlas.*
+
+* Override using external proeprties files
+    * Create **config** directory in current working directory and place application.properties file with overridden values.  
+    * place this line in the properties file  
+    ```spring.data.mongodb.uri=<Atlas URI>```
+    * Make sure you have unset the variable and then execute the jar again. (No need to recompile the code)
+
+
+### Now that we know how to externalize configuration for spring boot application, we can move to next step of containerizing it.
+
+# Containerized execution
+
+## Create Image
+Run below command to create docker image. You should be in **customer** directory i.e directory where Dockerfile is present
+```
+docker build -t customer .
+```
+## Run container
+```
+docker run -p 8080:8080 --name customer customer
+```
+**This will error out, there is no localhost mongodb inside container so application cannot connect**
+
+## Run container with ENV set to Atlas
+```
+docker rm customer
+docker run -p 8080:8080  -e "SPRING_DATA_MONGODB_URI=<Your Atlas URI>" --name customer customer
+```
+If you were able to connect to atlas earlier, this should connect as well and you will be able to launch swagger-ui page.
+
+## Run container with external config file
+Local path is path to config dir you created above.
+```
+docker rm customer
+docker run -p 8080:8080  -v "<local path to config dir>:/home/customer/config:ro" --name customer customer
+```
+
+Again you will see that this works and connects to Mongo Atlas.
+
+Understanding how to override spring properties is important for running these with docker and subsequently on Kubernetes.
+
+## You need to also make sure that any logging is written to console and not to any file to remove any dependency on local storage.
+
+Now that this application is container ready, we can look at how to deploy this to Cloud Run.
 
 ## Cloud Run execution
 To run this on GCP Cloud Run, associated infrastructure needs to bve created. Terraform template for the same is provided [here](https://github.com/skamalj/gcp-terraform/tree/master/stacks/cloudrun_project)
