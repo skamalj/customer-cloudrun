@@ -1,7 +1,6 @@
-# Local Execution
 This is code for java springboot microservcies with mongodb as backend and explains how to override application properties externally i.e how to override proeprties set and packaged in the application jar.
 
-## MongoDB data
+# MongoDB data
 
 The data required is sample mysql database - [here](https://www.mysqltutorial.org/mysql-sample-database.aspx#:~:text=%20The%20MySQL%20sample%20database%20schema%20consists%20of,such%20as%20who%20reports%20to%20whom.%20More%20)
 
@@ -30,7 +29,7 @@ status string
 * One local, this is default in application.properties
 * One on MongoAtlas, this we will  use to override application properties t oconnect to cloud without compiling / building the code again.
 
-## Local Execution
+# Local Execution
 ```
 cd customer
 mvn package
