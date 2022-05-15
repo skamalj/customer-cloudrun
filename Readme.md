@@ -1,4 +1,5 @@
 This is code for java springboot microservcies with mongodb as backend and explains how to override application properties externally i.e how to override proeprties set and packaged in the application jar.
+This make sure that when we containerise an application, we can update a[[lication properties without need to modify packaged Jars.
 
 # MongoDB data
 
@@ -88,7 +89,7 @@ docker run -p 8080:8080  -v "<local path to config dir>:/home/customer/config:ro
 
 Again you will see that this works and connects to Mongo Atlas.
 
-Understanding how to override spring properties is important for running these with docker and subsequently on Kubernetes.
+Now that we have seen how to execute this in docker, our application is finally ready for Kubernetes.
 
 # Kubernetes Execution
 
