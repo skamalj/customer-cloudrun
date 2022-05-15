@@ -1,4 +1,4 @@
-## Local Execution
+# Local Execution
 This is code for java springboot microservcies with mongodb as backend and explains how to override application properties externally i.e how to override proeprties set and packaged in the application jar.
 
 ## MongoDB data
@@ -91,11 +91,32 @@ Again you will see that this works and connects to Mongo Atlas.
 
 Understanding how to override spring properties is important for running these with docker and subsequently on Kubernetes.
 
-## You need to also make sure that any logging is written to console and not to any file to remove any dependency on local storage.
+# Kubernetes Execution
 
-Now that this application is container ready, we can look at how to deploy this to Cloud Run.
+Now that this application is container ready, we can look at how to deploy this to Cloud Run and Kubernetes
 
-## Cloud Run execution
+## Push image to GCR
+```
+gcloud artifacts repositories create customer --repository-format docker --location <region> --description "spring boot service image"
+docker tag customer <region>-docker.pkg.dev/<projectid>/customer/customer:v1
+docker push <region>-docker.pkg.dev/<projectid>/customer/customer:v1
+```
+
+* Update image name in **deployment.yaml**
+
+## Create Cluster and deploy service
+```
+gcloud container clusters create gke-mongo --zone asia-south1-a
+kubectl apply -f customer/kustomize/deployment.yaml
+kubectl expose deployment customer-dep  --name customer --port 8080 --target-port 8080
+```
+## Test it
+```
+kubectl port-forward  customer 8080:8080
+```
+* Open swagger-ui.html on localhost - localhost:8080/swagger-ui.html
+
+# Cloud Run execution (WIP)
 To run this on GCP Cloud Run, associated infrastructure needs to bve created. Terraform template for the same is provided [here](https://github.com/skamalj/gcp-terraform/tree/master/stacks/cloudrun_project)
 
 The setup created by this template is described in image below.  Components which are created by terraform are highlighted with TF logo.
